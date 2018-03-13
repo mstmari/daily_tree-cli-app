@@ -1,5 +1,2 @@
-require "daily_tree/version"
-
-module DailyTree
-  # Your code goes here...
-end
+require_relative "daily_tree/version"
+require_relative  './daily_tree/cli'
