@@ -2,30 +2,28 @@ class DailyTree::CLI
 
 def call
   todays_tree
-  menu
+
   goodbye
 end
 
   def todays_tree
-    puts "The tree of the day is:"
-    puts "*Western soapberry*"
+    DailyTree::Tree.today
     menu
   end
 
     def description
-    puts  "Here is a tree that is hardly ever seen and is not even widely available and yet it is one of the most adaptable and versatile trees available."
+    puts "Here is a tree that is hardly ever seen and is not even widely available and yet it is one of the most adaptable and versatile trees available."
     end
 
     def gets_stats
-      puts "Stats
 
-      NAME Western soapberry
+      puts "NAME: Western soapberry
 
-      LATIN Sapindus drummondii
+      LATIN: Sapindus drummondii
 
-      HEIGHT 30 feet
+      HEIGHT: 30 feet
 
-      TYPE  Deciduous"
+      TYPE:  Deciduous"
     end
 
     def goodbye
