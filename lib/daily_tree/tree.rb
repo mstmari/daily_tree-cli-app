@@ -3,7 +3,7 @@ class DailyTree::Tree
 
   @@all = []
 
-  def initialize(name = nil)
+  def initialize(name = nil) #<-- I want this to create a new instance of a tree, and assign the name, stats and description and add it to the @@all collection
     @name = name
     @description = description
     @stats = stats
@@ -12,7 +12,7 @@ class DailyTree::Tree
 
   end
 
-  #Here I want to create a new object of a tree that instantiates with a name, stats and a description.
+  # I want to create a new object of a tree that instantiates with a name, stats and a description.
 
   def self.today #<-- I want to be able to call this on the new instance of tree and have it the name of the tree
     puts "The tree of the day is: #{self.name}"

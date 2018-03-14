@@ -1,0 +1,4 @@
+class DailyTree::Scraper
+
+
+end
