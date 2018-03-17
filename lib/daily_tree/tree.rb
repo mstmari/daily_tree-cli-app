@@ -4,10 +4,9 @@ class Tree
 
   @@all = []
 
-  def initialize(name = nil) #<-- I want this to create a new instance of a tree, and assign the name, stats and description and add it to the @@all collection
-    @name = name
-    @description = description
-    @stats = stats
+  def initialize(tree_data_hash) #<-- I want this to create a new instance of a tree, and assign the attributes and then add it to the @@all collection
+    tree_data_hash.each {|k,v| self.send("#{k}=",v)}
+
 
     @@all << self
 
