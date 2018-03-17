@@ -1,5 +1,6 @@
 class Tree
-  attr_accessor :name, :description, :stats
+  attr_accessor :common_name, :scientific_name, :comment, :stats, :height, :habit, :leaf, :form
+
 
   @@all = []
 
