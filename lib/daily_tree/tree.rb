@@ -1,4 +1,4 @@
-class DailyTree::Tree
+class Tree
   attr_accessor :name, :description, :stats
 
   @@all = []
