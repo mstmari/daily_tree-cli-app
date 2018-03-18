@@ -2,16 +2,16 @@ require 'nokogiri'
 require 'pry'
 require 'colorize'
 
-require_relative '../daily_tree/tree.rb'
-require_relative '../daily_tree/tree_scraper.rb'
+# require_relative '../daily_tree/tree.rb'
+# require_relative '../daily_tree/tree_scraper.rb'
 class DailyTree::CLI
 
 
-def call
-  make_trees
-  add_attributes_to_trees
-  menu
-end
+# def call
+#   make_trees
+#   add_attributes_to_trees
+#   menu
+# end
 
 
         # def run
@@ -49,35 +49,28 @@ end
   def call
     #make_trees Tree.new #<-- When I call this I want it to create a new instance of tree
     menu
-    todays_tree #<-- this puts "The tree of the day is: and puts the #name of the tree"
-    goodbye
+    # todays_tree #<-- this puts "The tree of the day is: and puts the #name of the tree"
+    # goodbye
   end
 
-  def gather_trees
-    #1. scrape raw data from site
-    #2. parse data into correlating methods
-    #3. create collection of trees
-    #4. store each daily tree for later access
+  
+def random_tree
+  trees.all.sample
+end
 
-    #give the user the option to access a library of past trees
-
-  end
-
-  def description
-  end
 
     def menu
-    puts "Would you to see this tree's stats? or a brief description (enter 'stats', 'description' or 'exit')"
+    puts "Hello! Would you like to see all the trees? ('yes' or 'no')"
     input = nil
     while input != "exit"
       input = gets.strip.downcase
-      case input
-      when "stats"
-        stats
-      when "description"
-        description
-      when "exit"
-        puts "Make sure to check back tomorrow for a new tree!"
+    case input
+    when "yes"
+      #*  trees.all
+    when "no"
+      #* random_tree
+    when "exit"
+        puts "Have a nice day!"
 
         exit
       else puts "**Invalid Input**"
