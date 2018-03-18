@@ -1,21 +1,38 @@
 require 'open-uri'
 require 'pry'
 require 'nokogiri'
-
 class Scraper
-binding.pry
-def self.scrape_tree_index_page
-  tree = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
-  scraped_tree_names = []
+# def self.scrape_tree_index_page
+#   tree = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
+#   scraped_tree_names = []
+#
+#     tree.css("#plant-table-div").each do |i|
+#       tree_names = {common_name: itree_names.css(".td-comm-name").text.gsub("", " "),
+#        scientific_name: i.css(".th-sci-name a").text}
+#       scraped_tree_names.push(tree_names)
+#     end
+#      scraped_tree_names
+#   end
+#-----------------
+  def self.scrape_tree_index_page
+    tree = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
 
-    tree.css("#plant-table-div").each do |i|
-      tree_names = {common_name: i.css(".td-comm-name").text,
-       scientific_name: i.css(".th-sci-name a").text}
-      scraped_tree_names.push(tree_names)
-    end
-    scraped_tree_names
-  end
+    scraped_tree_names = []
 
+      tree.at('table').search('tr').each do |tr|
+        scraped_tree_names << tr.search('td').map(&:text)
+      end
+       tree_names = scraped_tree_names.map do |a|
+       {scientific_name:a[0], common_name: a[1]}
+      end
+      tree_names
+end
+
+self.scrape_tree_index_page
+
+
+
+#-------------
 
 
   def self.scrape_tree_data
@@ -48,7 +65,7 @@ def self.scrape_tree_index_page
             tree_data[:form] = value
           end
     end
-    puts tree_data
+     tree_data
 
   end
 
