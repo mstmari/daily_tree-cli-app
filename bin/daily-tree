@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-require './lib/daily_tree'
+
+require_relative '../config/environment'
 
 
-DailyTree::CLI.new.call
+CLI.new.call
