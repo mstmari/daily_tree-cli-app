@@ -5,6 +5,7 @@ class Scraper
 
 #this method scrapes the tree index page and creates a hash including the scientific_name and common_name
   def self.scrape_tree_index_page
+
     tree = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
     scraped_tree_names = []
     #line 13 starts at table then locates the 'tr' tag and searches that for the data included in the 'td' tag
@@ -37,12 +38,13 @@ self.scrape_tree_index_page
     #used to space out the data on the website.
     new_array.reject!{|a| a.nil? || (a.to_s.gsub(' ', '') == '') }
     #The next line splits the information at the ":" placing the 'key' and 'value' into different arrays so I can operate on and assign them.
-     plant = new_array.map{|i| i.split(":")}
+    plant = new_array.map{|i| i.split(":")}
 
     #this next part iterates through the array of key and value and assigns the charecteristics I want, and ignores the ones I do not.
       plant.each do |i|
         key = i[0].gsub(" ","")
         value = i[1]
+
         if key == "Comment"
             tree_data[:comment] = value
         elsif key == "Height"
@@ -56,7 +58,7 @@ self.scrape_tree_index_page
           end
     end
      tree_data
-
+     #binding.pry
   end
 
 

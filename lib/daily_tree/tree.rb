@@ -6,15 +6,15 @@ class Tree
 
 
   @@all = []
-
-  def initialize(scrape_tree_index_page, scrape_tree_data)
-  # I want this to create a new instance of a tree, and assign the attributes and then add it to the @@all collection
-    scrape_tree_index_page.each {|k,v| self.send("#{k}=",v)}
-
+binding.pry
+  def initialize(name, )
+    Scraper.scrape_tree_index_page.each {|k,v| self.send("#{k}=",v)}
 
     @@all << self
   end
 
+
+  Tree.new(Scraper.scrape_tree_index_page)
 
 
 
