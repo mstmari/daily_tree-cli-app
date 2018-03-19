@@ -2,8 +2,8 @@ require 'nokogiri'
 require 'pry'
 require 'colorize'
 
-# require_relative '../daily_tree/tree.rb'
-# require_relative '../daily_tree/tree_scraper.rb'
+require_relative '../daily_tree/tree.rb'
+require_relative '../daily_tree/tree_scraper.rb'
 class DailyTree::CLI
 
 
@@ -53,7 +53,7 @@ class DailyTree::CLI
     # goodbye
   end
 
-  
+
 def random_tree
   trees.all.sample
 end

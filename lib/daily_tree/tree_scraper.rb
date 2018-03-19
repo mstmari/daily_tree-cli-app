@@ -3,23 +3,22 @@ require 'pry'
 require 'nokogiri'
 class Scraper
 
-
 #this method scrapes the tree index page and creates a hash including the scientific_name and common_name
   def self.scrape_tree_index_page
     tree = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
-
     scraped_tree_names = []
     #line 13 starts at table then locates the 'tr' tag and searches that for the data included in the 'td' tag
       tree.at('table').search('tr').each do |tr|
         scraped_tree_names << tr.search('td').map(&:text)
       end
-       tree_names = scraped_tree_names.map do |a|
+       scraped_tree_names.map! do |a|
        {scientific_name: a[0], common_name: a[1]}
       end
-      tree_names
+      scraped_tree_names
+      #binding.pry
 end
-
 self.scrape_tree_index_page
+#self.scrape_tree_index_page
 
 
 
@@ -64,7 +63,7 @@ self.scrape_tree_index_page
 
 
 
-
+self.scrape_tree_data
 
 
 
