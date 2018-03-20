@@ -40,7 +40,6 @@ end
  # end
 
 def more_info(tree_num)
-  #binding.pry
   tree = Tree.all[tree_num]#.each do |tree|
     puts "  Common Name:" + " #{tree.common_name}"
     puts "  Scientific Name:" + " #{tree.scientific_name}"
@@ -52,24 +51,51 @@ def more_info(tree_num)
 #end
 end
 
+def goodbye
+  exit
+end
+
+def find_tree_by_number
+puts "******************"
+puts "  Please enter the number of the tree you would like to see more information on?"
+puts "  (or 'exit')"
+puts "******************"
+
+  input = gets.strip.downcase.
+  if input == "exit"
+    exit
+  else
+
+    more_info(input.to_i)
+
+    
+
+
+end
+
+
     def menu
-      puts "Hello! Would you like to see all the trees? ('yes' or 'no')"
+      puts "Hello! Would you like to see all the trees?"
       input = nil
           while input != "exit"
-            input = gets.strip.downcase
+            input = gets.strip.downcase.to_s
 
-            if input == "yes"
-              #binding.pry
-              display_trees
-            puts "Would you like to see more information on a tree? Please enter the number you wish to see"
-            tree_index = gets.strip.downcase.to_i
-              more_info(tree_index)
-            #     puts "Have a nice day!"
-            #     exit
-            # else puts "**Invalid Input**"
+
+
+          if input == "yes" || input == "y"
+
+
+            display_trees
+            find_tree_by_number
+
+            elsif input == "no" || input == "n" || input == "exit"
+              puts "Have a nice day!"
+              goodbye
+            else puts "**Invalid Input**"
           end
+          menu
         end
-      menu
+
     end
 
 end

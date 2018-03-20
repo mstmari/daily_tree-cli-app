@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+TODO: To run this gem enter 'ruby ./bin/daily-tree' in the command line then follow the prompts.
 
 ## Development
 

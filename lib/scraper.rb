@@ -8,11 +8,15 @@ require 'nokogiri'
 # require_relative  "daily_tree/cli"
 
 class Scraper
+
+
 @profile_url = ["https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/",
 "https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/",
 "https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-susquehanna/",
 "https://plants.ces.ncsu.edu/plants/trees/carya-illinoinensis-sumner/",
-"https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/"]
+"https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/",
+"https://plants.ces.ncsu.edu/plants/trees/abies-balsamea/",
+"https://plants.ces.ncsu.edu/plants/trees/abies-cilicica/"]
 
   @@all_trees = []
   @@all_tree_data = []
@@ -52,7 +56,7 @@ self.scrape_tree_index_page
   def self.scrape_tree_data
     tree_data = {}
 
-    @profile_url.each do |url|
+    @profile_url.each.with_index do |url, idx|
       #binding.pry
 
     #This first part of the method scrapes the individual plant page.
@@ -86,7 +90,7 @@ self.scrape_tree_index_page
     end
     @@all_tree_data << tree_data
     #binding.pry
-    @@all_trees[1].add_tree_attributes(@@all_tree_data)
+    @@all_trees[idx].add_tree_attributes(@@all_tree_data)
   end
 end
 def self.all_tree_names
@@ -99,9 +103,10 @@ end
 
 self.scrape_tree_data
 
-def add_attributes_to_trees
-  @@all_trees[1]
-   self
-  end
+
+# def add_attributes_to_trees
+#   @@all_trees[1]
+#    self
+#   end
 
 end
