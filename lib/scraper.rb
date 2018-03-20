@@ -15,6 +15,7 @@ class Scraper
 "https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-susquehanna/",
 "https://plants.ces.ncsu.edu/plants/trees/carya-illinoinensis-sumner/",
 "https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/",
+"https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/",
 "https://plants.ces.ncsu.edu/plants/trees/abies-balsamea/",
 "https://plants.ces.ncsu.edu/plants/trees/abies-cilicica/"]
 
@@ -38,24 +39,22 @@ class Scraper
       tree_names
 end
 self.scrape_tree_index_page
+#-------------
+def self.scrape_url
 
-# def self.profile_url_open(profile_url)
-# profile_url.each do |url|
-#   self.scrape_tree_data(url)
-#   end
-# end
-# binding.pry
-# self.profile_url_open(profile_url)
-# create an array of URLS to scrape from
-# iterate through and pass a URL to my scraper method
-# test my scraper method through the CLI
+  doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
+  doc.at('table').search('a').each {|i| i.attr("href")}
+    binding.pry
 
+  end
+self.scrape_url
 #-------------
 
 
   def self.scrape_tree_data
     tree_data = {}
 
+    @profile_url.each do |url|
     @profile_url.each.with_index do |url, idx|
       #binding.pry
 
@@ -87,11 +86,14 @@ self.scrape_tree_index_page
         elsif key == "Form"
             tree_data[:form] = value
           end
-    end
+
+      end
     @@all_tree_data << tree_data
     #binding.pry
+    @@all_trees[1].add_tree_attributes(@@all_tree_data)
     @@all_trees[idx].add_tree_attributes(@@all_tree_data)
   end
+end
 end
 def self.all_tree_names
   @@all_trees
@@ -104,9 +106,6 @@ end
 self.scrape_tree_data
 
 
-# def add_attributes_to_trees
-#   @@all_trees[1]
-#    self
-#   end
+
 
 end

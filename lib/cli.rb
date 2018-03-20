@@ -55,21 +55,21 @@ def goodbye
   exit
 end
 
+
 def find_tree_by_number
 puts "******************"
 puts "  Please enter the number of the tree you would like to see more information on?"
 puts "  (or 'exit')"
 puts "******************"
 
-  input = gets.strip.downcase.
-  if input == "exit"
-    exit
-  else
+    input = gets.strip
+  #binding.pry
+    if input == "exit"
+      exit
+    else more_info(input.to_i)
 
-    more_info(input.to_i)
-
-    
-
+    find_tree_by_number
+  end
 
 end
 
@@ -80,10 +80,7 @@ end
           while input != "exit"
             input = gets.strip.downcase.to_s
 
-
-
           if input == "yes" || input == "y"
-
 
             display_trees
             find_tree_by_number
