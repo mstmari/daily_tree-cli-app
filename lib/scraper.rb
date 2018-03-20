@@ -33,14 +33,19 @@ self.scrape_tree_index_page
 
 
 
+
+urls.each do |url|
+  tree_obj.scrape_tree_data(url)
+end
+
 #-------------
 
 
-  def self.scrape_tree_data
+  def self.scrape_tree_data(info_page_url)
     tree_data = {}
     #This first part of the method scrapes the individual plant page.
     #***I need to figure out how to automatically access the page instead of hardcoding it in, like below.***
-    doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/"))
+    doc = Nokogiri::HTML(open(info_page_url))
     new_array = doc.css(".plant_details").text.split("\n")
 
     #this part of the method parses the raw data found in '.plant_details' container.
@@ -68,7 +73,7 @@ self.scrape_tree_index_page
           end
     end
     @@all_tree_data << tree_data
-     binding.pry
+    @@all_trees[1].add_tree_attributes(@@all_tree_data)
   end
 
 def self.all_tree_names

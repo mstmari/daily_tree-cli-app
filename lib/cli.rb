@@ -10,11 +10,11 @@ class CLI
     menu
   end
 
-  def make_trees
-    new_trees = Scraper.new
-    new_trees.scrape_tree_index_page
-    new_trees
-  end
+  # def make_trees
+  #   new_scraper = Scraper.new
+  #   new_trees = new_scraper.scrape_tree_index_page
+  #   new_trees
+  # end
 
   # def add_attributes_to_trees
   # end
