@@ -8,6 +8,10 @@ require 'nokogiri'
 # require_relative  "daily_tree/cli"
 
 class Scraper
+
+  @@all_trees = []
+  @@all_tree_data = []
+
 #this method scrapes the tree index page and creates a hash including the scientific_name and common_name
   def self.scrape_tree_index_page
 
@@ -17,12 +21,11 @@ class Scraper
       tree.at('table').search('tr').each do |tr|
         tree_names << tr.search('td').map(&:text)
       end
+      tree_names.compact!
       tree_names.map! do |a|
        tree = {scientific_name: a[0], common_name: a[1]}
-       binding.pry
-      # Tree.new(tree)
+      @@all_trees << Tree.new(tree)
       end
-      binding.pry
       tree_names
 end
 self.scrape_tree_index_page
@@ -64,16 +67,30 @@ self.scrape_tree_index_page
             tree_data[:form] = value
           end
     end
-     tree_data
-     #binding.pry
+    @@all_tree_data << tree_data
+     binding.pry
   end
 
+def self.all_tree_names
+  @@all_trees
+end
 
+def self.all_tree_data
+  @@all_tree_data
+end
 
-
-
+# binding.pry
 self.scrape_tree_data
 
+def add_attributes_to_trees
+  @@all_trees[1]
+   self
+  end
 
-
+#
+# def add_student_attributes(attributes_hash)
+#     attributes_hash.each do |attr, value|
+#       self.send("#{attr}=", value)
+#     end
+#     self
 end
