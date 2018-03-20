@@ -33,20 +33,15 @@ end
 
 
 
-  def locate_by_common_name(common_name)
 
-
-    #takes in the name string of a tree
-    #returns and array of attributs for a given tree
-  end
 
  # def random_tree
  #  display_trees.sample
  # end
 
-def more_info(tree_name)
+def more_info(tree_num)
   #binding.pry
-  tree = Tree.all[tree_name]#.each do |tree|
+  tree = Tree.all[tree_num]#.each do |tree|
     puts "  Common Name:" + " #{tree.common_name}"
     puts "  Scientific Name:" + " #{tree.scientific_name}"
     puts "  Height:" + " #{tree.height}"

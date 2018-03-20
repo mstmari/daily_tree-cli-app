@@ -24,7 +24,7 @@ class Tree
       @leaf = info[:leaf]
       @form = info[:form]
     end
-    #binding.pry
+    binding.pry
     self
   end
 

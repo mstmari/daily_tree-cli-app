@@ -8,6 +8,11 @@ require 'nokogiri'
 # require_relative  "daily_tree/cli"
 
 class Scraper
+@profile_url = ["https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/",
+"https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/",
+"https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-susquehanna/",
+"https://plants.ces.ncsu.edu/plants/trees/carya-illinoinensis-sumner/",
+"https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/"]
 
   @@all_trees = []
   @@all_tree_data = []
@@ -30,13 +35,13 @@ class Scraper
 end
 self.scrape_tree_index_page
 
-
-
-
-# urls.each do |url|
-#   tree_obj.scrape_tree_data(url)
+# def self.profile_url_open(profile_url)
+# profile_url.each do |url|
+#   self.scrape_tree_data(url)
+#   end
 # end
-
+# binding.pry
+# self.profile_url_open(profile_url)
 # create an array of URLS to scrape from
 # iterate through and pass a URL to my scraper method
 # test my scraper method through the CLI
@@ -46,9 +51,13 @@ self.scrape_tree_index_page
 
   def self.scrape_tree_data
     tree_data = {}
+
+    @profile_url.each do |url|
+      #binding.pry
+
     #This first part of the method scrapes the individual plant page.
     #***I need to figure out how to automatically access the page instead of hardcoding it in, like below.***
-    doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/"))
+    doc = Nokogiri::HTML(open(url))
     new_array = doc.css(".plant_details").text.split("\n")
 
     #this part of the method parses the raw data found in '.plant_details' container.
@@ -79,7 +88,7 @@ self.scrape_tree_index_page
     #binding.pry
     @@all_trees[1].add_tree_attributes(@@all_tree_data)
   end
-
+end
 def self.all_tree_names
   @@all_trees
 end
