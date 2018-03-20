@@ -43,7 +43,8 @@ self.scrape_tree_index_page
 def self.scrape_url
 
   doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
-  doc.at('table').search('a').each {|i| i.attr("href")}
+  all_urls = []
+   all_urls << doc.at('table').search('a').each {|i| i.attr("href")}
     binding.pry
 
   end
