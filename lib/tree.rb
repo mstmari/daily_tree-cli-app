@@ -2,14 +2,13 @@ require 'pry'
 # require_relative '../daily_tree/tree_scraper.rb'
 
 class Tree
-  attr_accessor :scientific_name, :common_name, :comment, :stats, :height, :habit, :leaf, :form
+  attr_accessor :scientific_name, :common_name, :comment, :height, :habit, :leaf, :form
 
   @@all = []
   def initialize(tree_names = nil, tree_data = nil)
     tree_names.each {|k,v| self.send("#{k}=",v)}
     @comment = nil
-    @stats = nil
-    @height = nil
+    @height = nil#
     @habit = nil
     @leaf = nil
     @form = nil
@@ -25,7 +24,7 @@ class Tree
       @leaf = info[:leaf]
       @form = info[:form]
     end
-    binding.pry
+    #binding.pry
     self
   end
 
