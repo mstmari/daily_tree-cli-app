@@ -8,7 +8,7 @@ class Tree
   def initialize(tree_names = nil, tree_data = nil)
     tree_names.each {|k,v| self.send("#{k}=",v)}
     @comment = nil
-    @height = nil#
+    @height = nil
     @habit = nil
     @leaf = nil
     @form = nil
@@ -36,9 +36,17 @@ class Tree
   # end
 
 
+
+
   def self.all
     @@all
   end
 
+  def random_tree
+   Tree.all.sample
+  end
 
+  def display_trees
+    Tree.all
+  end
 end

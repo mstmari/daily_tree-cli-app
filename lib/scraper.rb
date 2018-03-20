@@ -29,11 +29,17 @@ class Scraper
       tree_names
 end
 self.scrape_tree_index_page
-#self.scrape_tree_index_page
+
+
+
 
 # urls.each do |url|
 #   tree_obj.scrape_tree_data(url)
 # end
+
+# create an array of URLS to scrape from
+# iterate through and pass a URL to my scraper method
+# test my scraper method through the CLI
 
 #-------------
 

@@ -16,41 +16,62 @@ class CLI
     new_trees
   end
 
-  # def add_attributes_to_trees
-  # end
+  def display_trees
+    Tree.all.each.with_index do |tree, i|
+      puts "  #{i}"
+      puts "  Common Name:" + " #{tree.common_name}"
+      puts "  Scientific Name:" + " #{tree.scientific_name}"
 
-  # urls.each do |url|
-  #   tree_obj.scrape_tree_data(url)
-  # end
-#   def call
-#      #<-- When I call this I want it to create a new instance of tree
-#     menu
-#
-#   end
-#
+      # puts "  Hieght:" + " #{tree.height}"
+      # puts "  Habit:" + " #{tree.habit}"
+      # puts "  Leaf:" + " #{tree.leaf}"
+      # puts "  Form:" + " #{tree.form}"
+      # puts "  Comment:" + " #{tree.comment}"
+      puts "----------------------"
+  end
+end
 
-#
-# def random_tree
-#   trees.all.sample
-# end
-#
-#
-#
+
+
+  def locate_by_common_name(common_name)
+
+
+    #takes in the name string of a tree
+    #returns and array of attributs for a given tree
+  end
+
+ # def random_tree
+ #  display_trees.sample
+ # end
+
+def more_info(tree_name)
+  #binding.pry
+  tree = Tree.all[tree_name]#.each do |tree|
+    puts "  Common Name:" + " #{tree.common_name}"
+    puts "  Scientific Name:" + " #{tree.scientific_name}"
+    puts "  Height:" + " #{tree.height}"
+    puts "  Habit:" + " #{tree.habit}"
+    puts "  Leaf:" + " #{tree.leaf}"
+    puts "  Form:" + " #{tree.form}"
+    puts "  Comment:" + " #{tree.comment}"
+#end
+end
+
     def menu
       puts "Hello! Would you like to see all the trees? ('yes' or 'no')"
       input = nil
           while input != "exit"
             input = gets.strip.downcase
-          case input
 
-            when "yes"
-              Tree.all
-            when "no"
-              #* random_tree
-            when "exit"
-                puts "Have a nice day!"
-                exit
-            else puts "**Invalid Input**"
+            if input == "yes"
+              #binding.pry
+              display_trees
+            puts "Would you like to see more information on a tree? Please enter the number you wish to see"
+            tree_index = gets.strip.downcase.to_i
+              more_info(tree_index)
+            #     puts "Have a nice day!"
+            #     exit
+            # else puts "**Invalid Input**"
           end
         end
       menu
