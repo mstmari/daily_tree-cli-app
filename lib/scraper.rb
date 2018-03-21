@@ -47,12 +47,14 @@ def self.scrape_url
 
   doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
 
-   i = doc.search('td').each do |k, v|
-    if k.to_s == "href" then puts "#{v}"
-      end
-      binding.pry
-    end
+    urls = doc.css('.th-sci-name  a').map { |link| link['href'] }
+    binding.pry
+    @all_urls << urls.collect do |url|
+       "https://plants.ces.ncsu.edu#{url}"
 
+    @all_urls
+end
+self.scrape_url
 
   # all_data = []
   #   all_data << doc.at('table').search("a")
