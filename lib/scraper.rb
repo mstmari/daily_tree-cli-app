@@ -16,7 +16,7 @@ class Scraper
 # "https://plants.ces.ncsu.edu/plants/trees/abies-balsamea/",
 # "https://plants.ces.ncsu.edu/plants/trees/abies-cilicica/"]
 
-  @all_urls = []
+  @@all_urls = []
 
   @@all_trees = []
   @@all_tree_data = []
@@ -48,14 +48,11 @@ def self.scrape_url
   doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
 
     urls = doc.css('.th-sci-name  a').map { |link| link['href'] }
-    binding.pry
-    @all_urls << urls.collect do |url|
+    @@all_urls << urls.collect do |url|
        "https://plants.ces.ncsu.edu#{url}"
-
-    @all_urls
+    @@all_urls
+    binding.pry
 end
-self.scrape_url
-
   # all_data = []
   #   all_data << doc.at('table').search("a")
   #   binding.pry
@@ -69,7 +66,6 @@ self.scrape_url
     #
     # @all_urls
 end
-self.scrape_url
 
 #these are all key value pairs.
 #All I need to do is iterate through them until I find the
@@ -78,14 +74,17 @@ self.scrape_url
 
 
   def self.scrape_tree_data
+    self.scrape_url
+
     tree_data = {}
 
-    @all_urls.each do |url|
-    @all_urls.each.with_index do |url, idx|
+    @@all_urls.each do |url|
+    @@all_urls.each.with_index do |url, idx|
 
     #This first part of the method scrapes the individual plant page.
-    #***I need to figure out how to automatically access the page instead of hardcoding it in, like below.***
+    binding.pry
     doc = Nokogiri::HTML(open(url))
+
     new_array = doc.css(".plant_details").text.split("\n")
 
     #this part of the method parses the raw data found in '.plant_details' container.
