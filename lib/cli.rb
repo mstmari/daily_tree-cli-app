@@ -6,7 +6,7 @@ class CLI
 
 
   def call
-    make_trees
+
     menu
   end
 
@@ -14,11 +14,13 @@ class CLI
   #binding.pry
     new_trees = Scraper.scrape_tree_index_page
     new_trees
+    #binding.pry
   end
 
   def display_trees
-    Tree.all.each.with_index do |tree, i|
-      puts "  #{i}"
+    Tree.all.each.with_index do |tree, idx|
+      #binding.pry
+      puts "  #{idx}"
       puts "  Common Name:" + " #{tree.common_name}"
       puts "  Scientific Name:" + " #{tree.scientific_name}"
       puts "----------------------"
@@ -27,7 +29,8 @@ end
 
 
 def more_info(tree_num)
-  tree = Tree.all[tree_num]#.each do |tree|
+#  binding.pry
+  tree = Tree.all[tree_num]
     puts "  Common Name:" + " #{tree.common_name}"
     puts "  Scientific Name:" + " #{tree.scientific_name}"
     puts "  Height:" + " #{tree.height}"
@@ -36,6 +39,7 @@ def more_info(tree_num)
     puts "  Form:" + " #{tree.form}"
     puts "  Comment:" + " #{tree.comment}"
 
+     tree
 end
 
 def goodbye
@@ -49,14 +53,14 @@ puts "  Please enter the number of the tree you would like to see more informati
 puts "  (or 'exit')"
 puts "******************"
 
-    input = gets.strip
-    if input == "exit"
-      puts "Have a nice day!"
-      goodbye
-    else more_info(input.to_i)
+    input = gets.strip.to_i
+    # if input == "exit"
+    #   puts "Have a nice day!"
+    #   goodbye
+    more_info(input)
 
     find_tree_by_number
-  end
+
 end
 
 
@@ -68,15 +72,17 @@ def menu
 
           if input == "yes" || input == "y"
 
-            display_trees
-            find_tree_by_number
+            make_trees
 
+            #display_trees
+            #find_tree_by_number
+            #binding.pry
             elsif input == "no" || input == "n" || input == "exit"
               puts "Have a nice day!"
               goodbye
             else puts "**Invalid Input**"
           end
-          menu
+          #menu
         end
 
     end

@@ -51,8 +51,9 @@ def self.scrape_url
        "https://plants.ces.ncsu.edu#{url}"
        end
     @@all_urls
-
+    #binding.pry
 end
+self.scrape_url
   # all_data = []
   #   all_data << doc.at('table').search("a")
   #   binding.pry
@@ -77,9 +78,9 @@ end
     #self.scrape_url
     tree_data = {}
 
-    @@all_urls.each do |url|
-    @@all_urls.each.with_index do |url, idx|
+    #@@all_urls.each do |url|
 
+    @@all_urls.each.with_index do |url, idx|
     #This first part of the method scrapes the individual plant page.
     doc = Nokogiri::HTML(open(url))
 
@@ -111,10 +112,8 @@ end
 
       end
     @@all_tree_data << tree_data
-    #binding.pry
     @@all_trees[1].add_tree_attributes(@@all_tree_data)
     @@all_trees[idx].add_tree_attributes(@@all_tree_data)
-  end
 end
 end
 

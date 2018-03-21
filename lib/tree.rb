@@ -14,9 +14,11 @@ class Tree
     @form = nil
 
     @@all << self
+    #binding.pry
   end
 
   def add_tree_attributes(all_trees)
+
     all_trees.each do |info|
       @comment = info[:comment]
       @height = info[:height]
