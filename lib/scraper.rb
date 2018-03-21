@@ -46,12 +46,12 @@ self.scrape_tree_index_page
 def self.scrape_url
 
   doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
-
     urls = doc.css('.th-sci-name  a').map { |link| link['href'] }
-    @@all_urls << urls.collect do |url|
+    @@all_urls = urls.collect do |url|
        "https://plants.ces.ncsu.edu#{url}"
+       end
     @@all_urls
-    binding.pry
+
 end
   # all_data = []
   #   all_data << doc.at('table').search("a")
@@ -65,7 +65,7 @@ end
     #   "https://plants.ces.ncsu.edu#{url}"
     #
     # @all_urls
-end
+
 
 #these are all key value pairs.
 #All I need to do is iterate through them until I find the
@@ -74,15 +74,13 @@ end
 
 
   def self.scrape_tree_data
-    self.scrape_url
-
+    #self.scrape_url
     tree_data = {}
 
     @@all_urls.each do |url|
     @@all_urls.each.with_index do |url, idx|
 
     #This first part of the method scrapes the individual plant page.
-    binding.pry
     doc = Nokogiri::HTML(open(url))
 
     new_array = doc.css(".plant_details").text.split("\n")
