@@ -21,23 +21,10 @@ class CLI
       puts "  #{i}"
       puts "  Common Name:" + " #{tree.common_name}"
       puts "  Scientific Name:" + " #{tree.scientific_name}"
-
-      # puts "  Hieght:" + " #{tree.height}"
-      # puts "  Habit:" + " #{tree.habit}"
-      # puts "  Leaf:" + " #{tree.leaf}"
-      # puts "  Form:" + " #{tree.form}"
-      # puts "  Comment:" + " #{tree.comment}"
       puts "----------------------"
   end
 end
 
-
-
-
-
- # def random_tree
- #  display_trees.sample
- # end
 
 def more_info(tree_num)
   tree = Tree.all[tree_num]#.each do |tree|
@@ -48,7 +35,7 @@ def more_info(tree_num)
     puts "  Leaf:" + " #{tree.leaf}"
     puts "  Form:" + " #{tree.form}"
     puts "  Comment:" + " #{tree.comment}"
-#end
+
 end
 
 def goodbye
@@ -63,18 +50,17 @@ puts "  (or 'exit')"
 puts "******************"
 
     input = gets.strip
-  #binding.pry
     if input == "exit"
-      exit
+      puts "Have a nice day!"
+      goodbye
     else more_info(input.to_i)
 
     find_tree_by_number
   end
-
 end
 
 
-    def menu
+def menu
       puts "Hello! Would you like to see all the trees?"
       input = nil
           while input != "exit"
@@ -94,5 +80,8 @@ end
         end
 
     end
+
+
+
 
 end

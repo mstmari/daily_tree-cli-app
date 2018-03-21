@@ -1,23 +1,22 @@
 require 'open-uri'
 require 'pry'
 require 'nokogiri'
+require_relative  "./tree"
 
-# require_relative "daily_tree/version"
- require_relative  "./tree"
-# require_relative "daily_tree/tree_scraper"
-# require_relative  "daily_tree/cli"
 
 class Scraper
+# "https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/"
+# https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-susquehanna/
+# @profile_url = ["https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/",
+# "https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/",
+# "https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-susquehanna/",
+# "https://plants.ces.ncsu.edu/plants/trees/carya-illinoinensis-sumner/",
+# "https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/",
+# "https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/",
+# "https://plants.ces.ncsu.edu/plants/trees/abies-balsamea/",
+# "https://plants.ces.ncsu.edu/plants/trees/abies-cilicica/"]
 
-
-@profile_url = ["https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/",
-"https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/",
-"https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-susquehanna/",
-"https://plants.ces.ncsu.edu/plants/trees/carya-illinoinensis-sumner/",
-"https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/",
-"https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/",
-"https://plants.ces.ncsu.edu/plants/trees/abies-balsamea/",
-"https://plants.ces.ncsu.edu/plants/trees/abies-cilicica/"]
+  @all_urls = []
 
   @@all_trees = []
   @@all_tree_data = []
@@ -37,27 +36,50 @@ class Scraper
       @@all_trees << Tree.new(tree)
       end
       tree_names
+
 end
 self.scrape_tree_index_page
 #-------------
+#This method scrapes the index page and retireves the URL's to pass into to the profile page scraper method.
+
+
 def self.scrape_url
 
   doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
-  all_urls = []
-   all_urls << doc.at('table').search('a').each {|i| i.attr("href")}
-    binding.pry
 
-  end
+   i = doc.search('td').each do |k, v|
+    if k.to_s == "href" then puts "#{v}"
+      end
+      binding.pry
+    end
+
+
+  # all_data = []
+  #   all_data << doc.at('table').search("a")
+  #   binding.pry
+   #all_parsed_urls = all_data.each_with_index.map do |url, idx|
+     #url[idx].attr("href")
+     #each {|k,v| self.send("#{k}=",v)}
+
+
+    #  @all_urls = all_parsed_urls.map do |url|
+    #   "https://plants.ces.ncsu.edu#{url}"
+    #
+    # @all_urls
+end
 self.scrape_url
+
+#these are all key value pairs.
+#All I need to do is iterate through them until I find the
+#'href' key then output the value.
 #-------------
 
 
   def self.scrape_tree_data
     tree_data = {}
 
-    @profile_url.each do |url|
-    @profile_url.each.with_index do |url, idx|
-      #binding.pry
+    @all_urls.each do |url|
+    @all_urls.each.with_index do |url, idx|
 
     #This first part of the method scrapes the individual plant page.
     #***I need to figure out how to automatically access the page instead of hardcoding it in, like below.***
@@ -96,17 +118,9 @@ self.scrape_url
   end
 end
 end
-def self.all_tree_names
-  @@all_trees
-end
 
-def self.all_tree_data
-  @@all_tree_data
-end
 
 self.scrape_tree_data
-
-
 
 
 end
