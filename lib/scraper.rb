@@ -25,17 +25,18 @@ class Scraper
   def self.scrape_tree_index_page
 
     tree = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
-    tree_names = []
+    @tree_names = []
     #line 13 starts at table then locates the 'tr' tag and searches that for the data included in the 'td' tag
       tree.at('table').search('tr').each do |tr|
-        tree_names << tr.search('td').map(&:text)
+        @tree_names << tr.search('td').map(&:text)
       end
-      tree_names.compact!
-      tree_names.map! do |a|
+      @tree_names.compact!
+      @tree_names.map! do |a|
        tree = {scientific_name: a[0], common_name: a[1]}
       @@all_trees << Tree.new(tree)
+      binding.pry
       end
-      tree_names
+      @tree_names
 
 end
 self.scrape_tree_index_page
