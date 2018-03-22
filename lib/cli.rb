@@ -45,7 +45,7 @@ class CLI
   def find_tree_by_number
     puts "******************"
     puts "  Please enter the number of the tree you would like to see more information on?"
-    puts "  Please enter a number between 1 - 50"
+    puts "  Enter a number between 1 - 50"
     puts "  (or 'exit')"
     puts "******************"
 
@@ -60,7 +60,7 @@ class CLI
     elsif input == "exit"
       puts "Have a nice day!"
       goodbye
-      
+
 
     else
       puts  "*Invalid Input* "
@@ -83,7 +83,11 @@ class CLI
       elsif input == "no" || input == "n" || input == "exit"
         puts "Have a nice day!"
         goodbye
-      else puts "**Invalid Input**"
+
+      else puts "-----"
+           puts "**Invalid Input**"
+           puts "Enter 'yes' or 'no'"
+           puts "-----"
       end
       menu
     end
