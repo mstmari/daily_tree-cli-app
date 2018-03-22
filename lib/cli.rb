@@ -16,7 +16,8 @@ class CLI
   end
 
   def display_trees
-    Tree.all.each.with_index do |tree, i|
+    Tree.all.each.with_index(-51) do |tree, i|
+      #binding.pry
       puts "  #{i}"
       puts "  Common Name:" + " #{tree.common_name}"
       puts "  Scientific Name:" + " #{tree.scientific_name}"

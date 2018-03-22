@@ -43,7 +43,6 @@ class Scraper
       "https://plants.ces.ncsu.edu#{url}"
     end
     @@all_urls
-    #binding.pry
   end
   self.scrape_url
 
@@ -51,10 +50,8 @@ class Scraper
 
 
   def self.scrape_tree_data
-    #self.scrape_url
     tree_data = {}
 
-    #@@all_urls.each do |url|
 
     @@all_urls.each.with_index do |url, idx|
       #This first part of the method scrapes the individual plant page.
@@ -89,7 +86,6 @@ class Scraper
       end
       @@all_tree_data << tree_data
       @@all_trees[1].add_tree_attributes(@@all_tree_data)
-      #binding.pry
       @@all_trees[idx].add_tree_attributes(@@all_tree_data)
     end
   end
