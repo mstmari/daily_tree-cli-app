@@ -35,13 +35,11 @@ class Scraper
     end
     #this next section removes the nil values then assigns the names to their values
     #then creates and names all the trees
-    @tree_names.compact!
-    @tree_names.each do |a|
+
+    @tree_names.map! do |a|
       tree = {scientific_name: a[0], common_name: a[1]}
       @@all_trees << Tree.new(tree)
     end
-    #binding.pry
-    @tree_names
   end
   self.scrape_tree_index_page
   #-------------
@@ -53,44 +51,44 @@ class Scraper
 
 
     @@all_urls.each.with_index do |url, idx|
-      #This first part of the method scrapes the individual plant page.
-      doc = Nokogiri::HTML(open(url))
+   #This first part of the method scrapes the individual plant page.
+   doc = Nokogiri::HTML(open(url))
 
-      new_array = doc.css(".plant_details").text.split("\n")
+   new_array = doc.css(".plant_details").text.split("\n")
 
-      #this part of the method parses the raw data found in '.plant_details' container.
-      #There was some very weird spacing and set up, I first had to remove extra '"' and ',' and empty spaces that were originally
-      #used to space out the data on the website.
-      new_array.reject!{|a| a.nil? || (a.to_s.gsub(' ', '') == '') }
-      #The next line splits the information at the ":" placing the 'key' and 'value' into different arrays so I can operate on and assign them.
-      plant = new_array.map{|i| i.split(":")}
+   #this part of the method parses the raw data found in '.plant_details' container.
+   #There was some very weird spacing and set up, I first had to remove extra '"' and ',' and empty spaces that were originally
+   #used to space out the data on the website.
+   new_array.reject!{|a| a.nil? || (a.to_s.gsub(' ', '') == '') }
+   #The next line splits the information at the ":" placing the 'key' and 'value' into different arrays so I can operate on and assign them.
+   plant = new_array.map{|i| i.split(":")}
 
-      #this next part iterates through the array of key and value and assigns the charecteristics I want, and ignores the ones I do not.
-      plant.each do |i|
-        key = i[0].gsub(" ","")
-        value = i[1]
+   #this next part iterates through the array of key and value and assigns the charecteristics I want, and ignores the ones I do not.
+   plant.each do |i|
+     key = i[0].gsub(" ","")
+     value = i[1]
 
-        if key == "Comment"
-          tree_data[:comment] = value
-        elsif key == "Height"
-          tree_data[:height] = value
-        elsif key == "Habit"
-          tree_data[:habit] = value
-        elsif key == "Leaf"
-          tree_data[:leaf] = value
-        elsif key == "Form"
-          tree_data[:form] = value
-        end
+     if key == "Comment"
+       tree_data[:comment] = value
+     elsif key == "Height"
+       tree_data[:height] = value
+     elsif key == "Habit"
+       tree_data[:habit] = value
+     elsif key == "Leaf"
+       tree_data[:leaf] = value
+     elsif key == "Form"
+       tree_data[:form] = value
+     end
 
-      end
-      @@all_tree_data << tree_data
-      @@all_trees[1].add_tree_attributes(@@all_tree_data)
-      @@all_trees[idx].add_tree_attributes(@@all_tree_data)
-    end
-  end
+   end
+   @@all_tree_data << tree_data
+   @@all_trees[1].add_tree_attributes(@@all_tree_data)
+   @@all_trees[idx].add_tree_attributes(@@all_tree_data)
+ end
+end
 
 
-  self.scrape_tree_data
+self.scrape_tree_data
 
 
 end

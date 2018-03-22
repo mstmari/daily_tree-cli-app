@@ -11,7 +11,10 @@ class CLI
   end
 
   def make_trees
-    new_trees = Scraper.scrape_tree_index_page
+    new_trees = []
+    #binding.pry
+    new_trees << Scraper.scrape_tree_index_page
+#    binding.pry
     new_trees
   end
 

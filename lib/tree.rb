@@ -16,7 +16,6 @@ class Tree
   end
 
   def add_tree_attributes(all_trees)
-
     all_trees.each do |info|
       @comment = info[:comment]
       @height = info[:height]
@@ -31,11 +30,4 @@ class Tree
     @@all
   end
 
-  def random_tree
-    Tree.all.sample
-  end
-
-  def display_trees
-    Tree.all
-  end
 end
