@@ -26,7 +26,6 @@ class Tree
       @leaf = info[:leaf]
       @form = info[:form]
     end
-    # binding.pry
     self
   end
 
@@ -45,7 +44,7 @@ class Tree
   end
 
   def random_tree
-   Tree.all.sample
+    Tree.all.sample
   end
 
   def display_trees

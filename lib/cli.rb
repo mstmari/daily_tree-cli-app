@@ -17,7 +17,6 @@ class CLI
 
   def display_trees
     Tree.all.each.with_index do |tree, idx|
-      binding.pry
       puts "  #{idx}"
       puts "  Common Name:" + " #{tree.common_name}"
       puts "  Scientific Name:" + " #{tree.scientific_name}"
@@ -27,7 +26,6 @@ class CLI
 
 
   def more_info(tree_num)
-    #  binding.pry
     tree = Tree.all[tree_num]
     "  Common Name:" + " #{tree.common_name}"
     "  Scientific Name:" + " #{tree.scientific_name}"
@@ -36,12 +34,12 @@ class CLI
     "  Leaf:" + " #{tree.leaf}"
     "  Form:" + " #{tree.form}"
     "  Comment:" + " #{tree.comment}"
-    #binding.pry
+
+    #more_info(tree_num)
     tree
   end
 
   def goodbye
-    puts "Have a nice day!"
 
     exit
   end
@@ -53,50 +51,64 @@ class CLI
     puts "  (or 'exit')"
     puts "******************"
 
-    input = gets.strip.downcase
-    # binding.pry
-    # if input == "exit"
-    #   goodbye
-    # else
-      more_info(input.to_i)
+    tree_index = nil
 
-      #find_tree_by_number
+    tree_index = gets.strip.to_i
 
+#binding.pry
+      if tree_index < 101
+      more_info(tree_index.to_i)
+
+    elsif tree_index == "exit"
+        goodbye
+
+    else puts
+      "**Invalid Input**"
+
+    end
+    find_tree_by_number
   end
 
 
-def menu
-  puts "Hello, would you like to see the trees?"
-  input = gets.strip.downcase
-      if input == "yes" || input == "y"
-        display_trees
+  def menu
+    puts "Hello, would you like to see the trees?"
+    #input = nil
 
-      elsif input == "no" || input == "n" || input == "exit"
-            puts "Have a nice day!"
-            goodbye
-      end
+    input = gets.strip.downcase
+
+    case input
+
+    when "yes"
+      display_trees
       find_tree_by_number
-end
-#   def menu
-#     puts "Hello! Would you like to see all the trees?"
-#     input = nil
-#       while input != "exit"
-#     input = gets.strip.downcase
-#
-#     if input == "yes" || input == "y"
-#       display_trees
-#
-#       find_tree_by_number
-#       #binding.pry
-#     elsif input == "no" || input == "n" || input == "exit"
-#       puts "Have a nice day!"
-#       goodbye
-#     else puts "**Invalid Input**"
-#     end
-#     #menu
-# end
-#
-#   end
+
+    when "no"
+      puts "Have a nice day!"
+      goodbye
+
+
+    end
+  end
+  #   def menu
+  #     puts "Hello! Would you like to see all the trees?"
+  #     input = nil
+  #       while input != "exit"
+  #     input = gets.strip.downcase
+  #
+  #     if input == "yes" || input == "y"
+  #       display_trees
+  #
+  #       find_tree_by_number
+  #       #binding.pry
+  #     elsif input == "no" || input == "n" || input == "exit"
+  #       puts "Have a nice day!"
+  #       goodbye
+  #     else puts "**Invalid Input**"
+  #     end
+  #     #menu
+  # end
+  #
+  #   end
 
 
 
