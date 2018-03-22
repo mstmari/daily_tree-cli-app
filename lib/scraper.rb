@@ -10,34 +10,11 @@ class Scraper
 
   @@all_trees = []
   @@all_tree_data = []
-
-  #this method scrapes the tree index page and creates a hash including the scientific_name and common_name
-  def self.scrape_tree_index_page
-
-    tree = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
-    @tree_names = []
-    #line 13 starts at table then locates the 'tr' tag and searches that for the data included in the 'td' tag
-    tree.at('table').search('tr').each do |tr|
-      @tree_names << tr.search('td').map(&:text)
-    end
-    #this next section removes the nil values then assigns the names to their values
-    #then creates and names all the trees
-    @tree_names.compact!
-    @tree_names.map! do |a|
-      tree = {scientific_name: a[0], common_name: a[1]}
-      @@all_trees << Tree.new(tree)
-      #binding.pry
-    end
-    @tree_names
-
-  end
-  self.scrape_tree_index_page
-  #-------------
   #This method scrapes the index page and retireves the URL's to pass into to the profile page scraper method.
 
   def self.scrape_url
 
-    doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
+    doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/10/?"))
     urls = doc.css('.th-sci-name  a').map { |link| link['href'] }
     @@all_urls = urls.collect do |url|
       "https://plants.ces.ncsu.edu#{url}"
@@ -47,6 +24,28 @@ class Scraper
   self.scrape_url
 
   #-------------
+  #this method scrapes the tree index page and creates a hash including the scientific_name and common_name
+  def self.scrape_tree_index_page
+
+    tree = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/10/?"))
+    @tree_names = []
+    #line 13 starts at table then locates the 'tr' tag and searches that for the data included in the 'td' tag
+    tree.at('table').search('tr').each do |tr|
+      @tree_names << tr.search('td').map(&:text)
+    end
+    #this next section removes the nil values then assigns the names to their values
+    #then creates and names all the trees
+    @tree_names.compact!
+    @tree_names.each do |a|
+      tree = {scientific_name: a[0], common_name: a[1]}
+      @@all_trees << Tree.new(tree)
+    end
+    #binding.pry
+    @tree_names
+  end
+  self.scrape_tree_index_page
+  #-------------
+
 
 
   def self.scrape_tree_data

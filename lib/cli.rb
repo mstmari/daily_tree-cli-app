@@ -17,7 +17,7 @@ class CLI
 
   def display_trees
     Tree.all.each.with_index(-51) do |tree, i|
-      #binding.pry
+    #  binding.pry
       puts "  #{i}"
       puts "  Common Name:" + " #{tree.common_name}"
       puts "  Scientific Name:" + " #{tree.scientific_name}"
@@ -52,7 +52,7 @@ class CLI
 
     input = gets.strip
 
-    if (1..101) === input.to_i
+    if (1..50) === input.to_i
       more_info(input.to_i)
       find_tree_by_number
 
