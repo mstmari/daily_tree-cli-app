@@ -4,111 +4,88 @@ require_relative  "./scraper"
 
 class CLI
 
+
   def call
     make_trees
     menu
   end
 
   def make_trees
-    #binding.pry
+  #binding.pry
     new_trees = Scraper.scrape_tree_index_page
     new_trees
   end
 
   def display_trees
-    Tree.all.each.with_index do |tree, idx|
-      puts "  #{idx}"
+    Tree.all.each.with_index do |tree, i|
+      puts "  #{i}"
       puts "  Common Name:" + " #{tree.common_name}"
       puts "  Scientific Name:" + " #{tree.scientific_name}"
       puts "----------------------"
-    end
   end
+end
 
 
-  def more_info(tree_num)
-    tree = Tree.all[tree_num]
-    "  Common Name:" + " #{tree.common_name}"
-    "  Scientific Name:" + " #{tree.scientific_name}"
-    "  Height:" + " #{tree.height}"
-    "  Habit:" + " #{tree.habit}"
-    "  Leaf:" + " #{tree.leaf}"
-    "  Form:" + " #{tree.form}"
-    "  Comment:" + " #{tree.comment}"
+def more_info(tree_num)
+  tree = Tree.all[tree_num]#.each do |tree|
+    puts "  Common Name:" + " #{tree.common_name}"
+    puts "  Scientific Name:" + " #{tree.scientific_name}"
+    puts "  Height:" + " #{tree.height}"
+    puts "  Habit:" + " #{tree.habit}"
+    puts "  Leaf:" + " #{tree.leaf}"
+    puts "  Form:" + " #{tree.form}"
+    puts "  Comment:" + " #{tree.comment}"
 
-    #more_info(tree_num)
-    tree
-  end
+end
 
-  def goodbye
-
-    exit
-  end
+def goodbye
+  exit
+end
 
 
-  def find_tree_by_number
-    puts "******************"
-    puts "  Please enter the number of the tree you would like to see more information on?"
-    puts "  (or 'exit')"
-    puts "******************"
+def find_tree_by_number
+puts "******************"
+puts "  Please enter the number of the tree you would like to see more information on?"
+puts "  Please enter a number between 1 - 50"
+puts "  (or 'exit')"
+puts "******************"
 
-    tree_index = nil
-
-    tree_index = gets.strip.to_i
-
-#binding.pry
-      if tree_index < 101
-      more_info(tree_index.to_i)
-
-    elsif tree_index == "exit"
-        goodbye
-
-    else puts
-      "**Invalid Input**"
-
-    end
-    find_tree_by_number
-  end
-
-
-  def menu
-    puts "Hello, would you like to see the trees?"
-    #input = nil
-
-    input = gets.strip.downcase
-
-    case input
-
-    when "yes"
-      display_trees
-      find_tree_by_number
-
-    when "no"
+    input = gets.strip
+    if input == "exit"
       puts "Have a nice day!"
       goodbye
 
+    elsif input.to_i > 101
+    puts  "*Invalid Number* "
+    find_tree_by_number
+
+    else more_info(input.to_i)
+
+    find_tree_by_number
+  end
+end
+
+
+def menu
+      puts "Hello! Would you like to see all the trees?"
+      input = nil
+          while input != "exit"
+            input = gets.strip.downcase.to_s
+
+          if input == "yes" || input == "y"
+
+            display_trees
+            find_tree_by_number
+
+            elsif input == "no" || input == "n" || input == "exit"
+              puts "Have a nice day!"
+              goodbye
+            else puts "**Invalid Input**"
+          end
+          menu
+        end
 
     end
-  end
-  #   def menu
-  #     puts "Hello! Would you like to see all the trees?"
-  #     input = nil
-  #       while input != "exit"
-  #     input = gets.strip.downcase
-  #
-  #     if input == "yes" || input == "y"
-  #       display_trees
-  #
-  #       find_tree_by_number
-  #       #binding.pry
-  #     elsif input == "no" || input == "n" || input == "exit"
-  #       puts "Have a nice day!"
-  #       goodbye
-  #     else puts "**Invalid Input**"
-  #     end
-  #     #menu
-  # end
-  #
-  #   end
 
 
 
