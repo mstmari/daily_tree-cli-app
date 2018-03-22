@@ -1,5 +1,4 @@
 require 'pry'
-# require_relative '../daily_tree/tree_scraper.rb'
 
 class Tree
   attr_accessor :scientific_name, :common_name, :comment, :height, :habit, :leaf, :form
@@ -14,7 +13,6 @@ class Tree
     @form = nil
 
     @@all << self
-    #binding.pry
   end
 
   def add_tree_attributes(all_trees)
@@ -28,16 +26,6 @@ class Tree
     end
     self
   end
-
-
-  # def self.create_from_collection(trees_array)
-  #   trees_array.each do |tree|
-  #     Tree.new(tree)
-  #   end
-  # end
-
-
-
 
   def self.all
     @@all

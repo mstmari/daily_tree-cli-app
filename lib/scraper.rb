@@ -5,16 +5,6 @@ require_relative  "./tree"
 
 
 class Scraper
-  # "https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/"
-  # https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-susquehanna/
-  # @profile_url = ["https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/",
-  # "https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-sunflower/",
-  # "https://plants.ces.ncsu.edu/plants/trees/asimina-triloba-susquehanna/",
-  # "https://plants.ces.ncsu.edu/plants/trees/carya-illinoinensis-sumner/",
-  # "https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/",
-  # "https://plants.ces.ncsu.edu/plants/trees/morus-rubra-collier/",
-  # "https://plants.ces.ncsu.edu/plants/trees/abies-balsamea/",
-  # "https://plants.ces.ncsu.edu/plants/trees/abies-cilicica/"]
 
   @@all_urls = []
 
@@ -30,6 +20,8 @@ class Scraper
     tree.at('table').search('tr').each do |tr|
       @tree_names << tr.search('td').map(&:text)
     end
+    #this next section removes the nil values then assigns the names to their values
+    #then creates and names all the trees
     @tree_names.compact!
     @tree_names.map! do |a|
       tree = {scientific_name: a[0], common_name: a[1]}
@@ -43,7 +35,6 @@ class Scraper
   #-------------
   #This method scrapes the index page and retireves the URL's to pass into to the profile page scraper method.
 
-
   def self.scrape_url
 
     doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/"))
@@ -55,23 +46,7 @@ class Scraper
     #binding.pry
   end
   self.scrape_url
-  # all_data = []
-  #   all_data << doc.at('table').search("a")
-  #   binding.pry
-  #all_parsed_urls = all_data.each_with_index.map do |url, idx|
-  #url[idx].attr("href")
-  #each {|k,v| self.send("#{k}=",v)}
 
-
-  #  @all_urls = all_parsed_urls.map do |url|
-  #   "https://plants.ces.ncsu.edu#{url}"
-  #
-  # @all_urls
-
-
-  #these are all key value pairs.
-  #All I need to do is iterate through them until I find the
-  #'href' key then output the value.
   #-------------
 
 
