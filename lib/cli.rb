@@ -7,6 +7,7 @@ class CLI
 
   def call
     make_trees
+    get_tree_details
     menu
   end
 
@@ -14,13 +15,16 @@ class CLI
     new_trees = []
     #binding.pry
     new_trees << Scraper.scrape_tree_index_page
-#    binding.pry
     new_trees
   end
 
+  def get_tree_details
+    Scraper.scrape_url
+    Scraper.scrape_tree_data
+  end
+
   def display_trees
-    Tree.all.each.with_index(-51) do |tree, i|
-    #  binding.pry
+    Tree.all.each.with_index do |tree, i|
       puts "  #{i}"
       puts "  Common Name:" + " #{tree.common_name}"
       puts "  Scientific Name:" + " #{tree.scientific_name}"
@@ -30,7 +34,9 @@ class CLI
 
 
   def more_info(tree_num)
-    tree = Tree.all[tree_num]#.each do |tree|
+    #binding.pry
+
+    tree = Tree.all[tree_num]
     puts "  Common Name:" + " #{tree.common_name}"
     puts "  Scientific Name:" + " #{tree.scientific_name}"
     puts "  Height:" + " #{tree.height}"
@@ -48,7 +54,7 @@ class CLI
 
   def find_tree_by_number
     puts "******************"
-    puts "  Please enter the number of the tree you would like to see more information on?"
+    puts "  Please enter the number of the plant you would like to see more information on?"
     puts "  Enter a number between 1 - 50"
     puts "  (or 'exit')"
     puts "******************"
@@ -62,7 +68,7 @@ class CLI
 
 
     elsif input == "exit"
-      puts "Have a nice day!"
+      puts "Have a Nice Day!"
       goodbye
 
 
@@ -74,7 +80,11 @@ class CLI
 
 
   def menu
-    puts "Hello! Would you like to see all the trees?"
+    puts "---------------"
+    puts "Hello! welcome to Daily-tree, the plant gem, it returns 50 plants for you to learn about."
+    puts "Would you like to see the plants?"
+    puts "---------------"
+
     input = nil
     while input != "exit"
       input = gets.strip.downcase.to_s

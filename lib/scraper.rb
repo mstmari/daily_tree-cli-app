@@ -7,7 +7,6 @@ require_relative  "./tree"
 class Scraper
 
   @@all_urls = []
-
   @@all_trees = []
   @@all_tree_data = []
   #This method scrapes the index page and retireves the URL's to pass into to the profile page scraper method.
@@ -20,8 +19,9 @@ class Scraper
       "https://plants.ces.ncsu.edu#{url}"
     end
     @@all_urls
+
   end
-  self.scrape_url
+#  self.scrape_url
 
   #-------------
   #this method scrapes the tree index page and creates a hash including the scientific_name and common_name
@@ -41,54 +41,57 @@ class Scraper
       @@all_trees << Tree.new(tree)
     end
   end
-  self.scrape_tree_index_page
+
+  #self.scrape_tree_index_page
   #-------------
 
 
 
   def self.scrape_tree_data
     tree_data = {}
+#binding.pry
+
+    @@all_urls.each.with_index(1) do |url, idx|
+      #This first part of the method scrapes the individual plant page.
+      doc = Nokogiri::HTML(open(url))
+#binding.pry
+      new_array = doc.css(".plant_details").text.split("\n")
+
+      #this part of the method parses the raw data found in '.plant_details' container.
+      #There was some very weird spacing and set up, I first had to remove extra '"' and ',' and empty spaces that were originally
+      #used to space out the data on the website.
+      new_array.reject!{|a| a.nil? || (a.to_s.gsub(' ', '') == '') }
+      #The next line splits the information at the ":" placing the 'key' and 'value' into different arrays so I can operate on and assign them.
+      plant = new_array.map{|i| i.split(":")}
+
+      #this next part iterates through the array of key and value and assigns the charecteristics I want, and ignores the ones I do not.
+      plant.each do |i|
+        key = i[0].gsub(" ","")
+        value = i[1]
+
+        if key == "Comment"
+          tree_data[:comment] = value
+        elsif key == "Height"
+          tree_data[:height] = value
+        elsif key == "Habit"
+          tree_data[:habit] = value
+        elsif key == "Leaf"
+          tree_data[:leaf] = value
+        elsif key == "Form"
+          tree_data[:form] = value
+        end
+
+      end
+      #binding.pry
+      @@all_tree_data << tree_data
+      @@all_trees[1].add_tree_attributes(@@all_tree_data)
+      @@all_trees[idx].add_tree_attributes(@@all_tree_data)
+    #  binding.pry
+    end
+  end
 
 
-    @@all_urls.each.with_index do |url, idx|
-   #This first part of the method scrapes the individual plant page.
-   doc = Nokogiri::HTML(open(url))
-
-   new_array = doc.css(".plant_details").text.split("\n")
-
-   #this part of the method parses the raw data found in '.plant_details' container.
-   #There was some very weird spacing and set up, I first had to remove extra '"' and ',' and empty spaces that were originally
-   #used to space out the data on the website.
-   new_array.reject!{|a| a.nil? || (a.to_s.gsub(' ', '') == '') }
-   #The next line splits the information at the ":" placing the 'key' and 'value' into different arrays so I can operate on and assign them.
-   plant = new_array.map{|i| i.split(":")}
-
-   #this next part iterates through the array of key and value and assigns the charecteristics I want, and ignores the ones I do not.
-   plant.each do |i|
-     key = i[0].gsub(" ","")
-     value = i[1]
-
-     if key == "Comment"
-       tree_data[:comment] = value
-     elsif key == "Height"
-       tree_data[:height] = value
-     elsif key == "Habit"
-       tree_data[:habit] = value
-     elsif key == "Leaf"
-       tree_data[:leaf] = value
-     elsif key == "Form"
-       tree_data[:form] = value
-     end
-
-   end
-   @@all_tree_data << tree_data
-   @@all_trees[1].add_tree_attributes(@@all_tree_data)
-   @@all_trees[idx].add_tree_attributes(@@all_tree_data)
- end
-end
-
-
-self.scrape_tree_data
+  #self.scrape_tree_data
 
 
 end

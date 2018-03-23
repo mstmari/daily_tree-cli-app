@@ -13,7 +13,9 @@ class Tree
     @form = nil
 
     @@all << self
+
   end
+
 
   def add_tree_attributes(all_trees)
     all_trees.each do |info|

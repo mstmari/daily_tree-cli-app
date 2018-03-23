@@ -1,8 +1,7 @@
 # DailyTree
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/daily_tree`. To experiment with that code, run `bin/console` for an interactive prompt.
+DailyTree scrapes a database of different plant varieties, it returns a formatted menu containing 50 trees with their scientific name and their common name and an index number.  It then prompts the user to enter the index of the plant they would like to learn more information on and returns a list of all those attributes, and repeats this step until the user types ‘exit’.
 
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
@@ -22,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: To run this gem enter 'ruby ./bin/daily-tree' in the command line then follow the prompts.
+To run this gem enter 'ruby ./bin/daily-tree' in the command line then follow the prompts.
 
 ## Development
 
