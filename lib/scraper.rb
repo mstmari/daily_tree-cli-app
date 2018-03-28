@@ -21,7 +21,6 @@ class Scraper
     @@all_urls
 
   end
-#  self.scrape_url
 
   #-------------
   #this method scrapes the tree index page and creates a hash including the scientific_name and common_name
@@ -29,10 +28,12 @@ class Scraper
 
     tree = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/10/?"))
     @tree_names = []
-    #line 13 starts at table then locates the 'tr' tag and searches that for the data included in the 'td' tag
+
+    #starts at table then locates the 'tr' tag and searches that for the data included in the 'td' tag
     tree.at('table').search('tr').each do |tr|
       @tree_names << tr.search('td').map(&:text)
     end
+
     #this next section removes the nil values then assigns the names to their values
     #then creates and names all the trees
 
@@ -42,19 +43,16 @@ class Scraper
     end
   end
 
-  #self.scrape_tree_index_page
   #-------------
 
 
 
   def self.scrape_tree_data
     tree_data = {}
-#binding.pry
 
     @@all_urls.each.with_index(1) do |url, idx|
       #This first part of the method scrapes the individual plant page.
       doc = Nokogiri::HTML(open(url))
-#binding.pry
       new_array = doc.css(".plant_details").text.split("\n")
 
       #this part of the method parses the raw data found in '.plant_details' container.
@@ -64,7 +62,7 @@ class Scraper
       #The next line splits the information at the ":" placing the 'key' and 'value' into different arrays so I can operate on and assign them.
       plant = new_array.map{|i| i.split(":")}
 
-      #this next part iterates through the array of key and value and assigns the charecteristics I want, and ignores the ones I do not.
+      #this next part iterates through the array of key and value and assigns the desired charecteristics.
       plant.each do |i|
         key = i[0].gsub(" ","")
         value = i[1]
@@ -82,16 +80,13 @@ class Scraper
         end
 
       end
-      #binding.pry
       @@all_tree_data << tree_data
       @@all_trees[1].add_tree_attributes(@@all_tree_data)
       @@all_trees[idx].add_tree_attributes(@@all_tree_data)
-    #  binding.pry
     end
   end
 
 
-  #self.scrape_tree_data
 
 
 end

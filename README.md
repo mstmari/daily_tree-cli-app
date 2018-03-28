@@ -1,7 +1,6 @@
 # DailyTree
 
-DailyTree scrapes a database of different plant varieties, it returns a formatted menu containing 50 trees with their scientific name and their common name and an index number.  It then prompts the user to enter the index of the plant they would like to learn more information on and returns a list of all those attributes, and repeats this step until the user types ‘exit’.
-
+DailyTree provides the user with a formatted menu containing 50 trees with their scientific name, common name and an index number.  It then prompts the user to enter the index of the plant they would like to learn more information on and returns a list of all those attributes, and repeats this step until the user types ‘exit’.
 
 ## Installation
 
