@@ -1,5 +1,3 @@
-require 'pry'
-
 class Tree
   attr_accessor :scientific_name, :common_name, :comment, :height, :habit, :leaf, :form
 

@@ -1,25 +1,16 @@
-require 'open-uri'
-require 'pry'
-require 'nokogiri'
-require_relative  "./tree"
-
-
 class Scraper
 
-  @@all_urls = []
-  @@all_trees = []
-  @@all_tree_data = []
+
+  #@@all_trees = []
+  #@@all_tree_data = []
   #This method scrapes the index page and retireves the URL's to pass into to the profile page scraper method.
 
   def self.scrape_url
-
     doc = Nokogiri::HTML(open("https://plants.ces.ncsu.edu/plants/category/trees/10/?"))
     urls = doc.css('.th-sci-name  a').map { |link| link['href'] }
-    @@all_urls = urls.collect do |url|
+    urls.collect do |url|
       "https://plants.ces.ncsu.edu#{url}"
     end
-    @@all_urls
-
   end
 
   #-------------
@@ -39,8 +30,10 @@ class Scraper
 
     @tree_names.map! do |a|
       tree = {scientific_name: a[0], common_name: a[1]}
-      @@all_trees << Tree.new(tree)
+      #@@all_trees <<
+      Tree.new(tree)
     end
+    scrape_tree_data
   end
 
   #-------------
@@ -50,7 +43,8 @@ class Scraper
   def self.scrape_tree_data
     tree_data = {}
 
-    @@all_urls.each.with_index(1) do |url, idx|
+    scrape_url.each.with_index(1) do |url, idx|
+      #tree_data = {}
       #This first part of the method scrapes the individual plant page.
       doc = Nokogiri::HTML(open(url))
       new_array = doc.css(".plant_details").text.split("\n")
@@ -80,9 +74,11 @@ class Scraper
         end
 
       end
-      @@all_tree_data << tree_data
-      @@all_trees[1].add_tree_attributes(@@all_tree_data)
-      @@all_trees[idx].add_tree_attributes(@@all_tree_data)
+
+
+      #@@all_tree_data << tree_data
+      #@@all_trees[1].add_tree_attributes(@@all_tree_data)
+      @@all_trees[idx].add_tree_attributes(tree_data)
     end
   end
 

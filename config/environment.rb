@@ -1,3 +1,10 @@
 require "bundler/setup"
-#require_all './lib'
+require 'nokogiri'
+require 'pry'
+require 'open-uri'
+
 require_relative '../lib/cli'
+require_relative  "../lib/scraper"
+require_relative  "../lib/tree"
+require_relative '../lib/version'
+#require_all './lib'

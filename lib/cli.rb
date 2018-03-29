@@ -1,27 +1,23 @@
-require 'nokogiri'
-require 'pry'
-require_relative  "./scraper"
-
 class CLI
 
 
   def call
-    make_trees
-    get_tree_details
+    #make_trees
+  #  get_tree_details
+    Scraper.scrape_tree_index_page
     menu
   end
 
-  def make_trees
-    new_trees = []
-    #binding.pry
-    new_trees << Scraper.scrape_tree_index_page
-    new_trees
-  end
+  #def make_trees
+    #new_trees = []
+    #new_trees << Scraper.scrape_tree_index_page
+    #new_trees
+  #end
 
-  def get_tree_details
-    Scraper.scrape_url
-    Scraper.scrape_tree_data
-  end
+  #def get_tree_details
+
+    #Scraper.scrape_tree_data
+  #end
 
   def display_trees
     Tree.all.each.with_index do |tree, i|
@@ -34,8 +30,6 @@ class CLI
 
 
   def more_info(tree_num)
-    #binding.pry
-
     tree = Tree.all[tree_num]
     puts "  Common Name:" + " #{tree.common_name}"
     puts "  Scientific Name:" + " #{tree.scientific_name}"
@@ -61,19 +55,15 @@ class CLI
 
     input = gets.strip
 
-    if (1..50) === input.to_i
+    if input.to_i.between?(1, 50)
       more_info(input.to_i)
       find_tree_by_number
-
-
 
     elsif input == "exit"
       puts "Have a Nice Day!"
       goodbye
 
-
-    else
-      puts  "*Invalid Input* "
+    else puts  "*Invalid Input* "
       find_tree_by_number
     end
   end
@@ -99,16 +89,17 @@ class CLI
         goodbye
 
       else puts "-----"
-           puts "**Invalid Input**"
-           puts "Enter 'yes' or 'no'"
-           puts "-----"
+        puts "**Invalid Input**"
+        puts "Enter 'yes' or 'no'"
+        puts "-----"
       end
       menu
     end
 
   end
 
-
-
-
 end
+
+#Refactor Scraper to no longer rely on class variables
+#Refactor last Scraper method to only add attributes to a single tree at a time
+#Refactor tree to only add attributes to one tree instance at a time
