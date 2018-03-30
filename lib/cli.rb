@@ -100,6 +100,9 @@ class CLI
 
 end
 
+
 #Refactor Scraper to no longer rely on class variables
+  #think about the order of the program, one scraper feeds into the next etc.
 #Refactor last Scraper method to only add attributes to a single tree at a time
+  #
 #Refactor tree to only add attributes to one tree instance at a time
