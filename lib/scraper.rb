@@ -66,21 +66,21 @@ class Scraper
         value = i[1]
 
         if key == "Comment"
-       tree_data[:comment] = value
-     elsif key == "Height"
-       tree_data[:height] = value
-     elsif key == "Habit"
-       tree_data[:habit] = value
-     elsif key == "Leaf"
-       tree_data[:leaf] = value
-     elsif key == "Form"
-       tree_data[:form] = value
-     end
+          tree_data[:comment] = value
+        elsif key == "Height"
+          tree_data[:height] = value
+        elsif key == "Habit"
+          tree_data[:habit] = value
+        elsif key == "Leaf"
+          tree_data[:leaf] = value
+        elsif key == "Form"
+          tree_data[:form] = value
+        end
 
-   end
-   Tree.all[indx].add_tree_attributes(tree_data)
- end
-end
+      end
+      Tree.all[indx].add_tree_attributes(tree_data)
+    end
+  end
 
 
 

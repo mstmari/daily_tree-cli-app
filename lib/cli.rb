@@ -2,22 +2,9 @@ class CLI
 
 
   def call
-    #make_trees
-  #  get_tree_details
     Scraper.scrape_tree_index_page
     menu
   end
-
-  #def make_trees
-    #new_trees = []
-    #new_trees << Scraper.scrape_tree_index_page
-    #new_trees
-  #end
-
-  #def get_tree_details
-
-    #Scraper.scrape_tree_data
-  #end
 
   def display_trees
     Tree.all.each.with_index do |tree, i|
@@ -102,7 +89,6 @@ end
 
 
 #Refactor Scraper to no longer rely on class variables
-  #think about the order of the program, one scraper feeds into the next etc.
 #Refactor last Scraper method to only add attributes to a single tree at a time
-  #
+
 #Refactor tree to only add attributes to one tree instance at a time
