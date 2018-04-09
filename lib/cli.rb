@@ -56,26 +56,28 @@ class CLI
   end
 
 
+
+
+
   def menu
     puts "---------------"
     puts "Hello! welcome to Daily-tree, the plant gem, it returns 50 plants for you to learn about."
     puts "Would you like to see the plants?"
     puts "---------------"
 
-    input = nil
-    while input != "exit"
-      input = gets.strip.downcase.to_s
 
-      if input == "yes" || input == "y"
+    input = gets.strip.downcase.to_s
 
+    case input
+    when "yes", "y", "yeah"
         display_trees
         find_tree_by_number
 
-      elsif input == "no" || input == "n" || input == "exit"
+    when "no", "n", "exit"
         puts "Have a nice day!"
         goodbye
 
-      else puts "-----"
+    else puts "-----"
         puts "**Invalid Input**"
         puts "Enter 'yes' or 'no'"
         puts "-----"
@@ -83,7 +85,7 @@ class CLI
       menu
     end
 
-  end
+
 
 end
 

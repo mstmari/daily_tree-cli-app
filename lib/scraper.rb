@@ -1,9 +1,6 @@
-
-
 class Scraper
 
 
-  #This method scrapes the index page and retireves the URL's to pass into to the profile page scraper method.
 
   #this method scrapes the tree index page and creates a hash including the scientific_name and common_name
   def self.scrape_tree_index_page
@@ -48,7 +45,7 @@ class Scraper
   def self.scrape_tree_data
 
     scrape_url.each.with_index(1) do |url, indx|
-      tree_data = {}
+      tree_data = {} #<--- created inside of the loop
       #This first part of the method scrapes the individual plant page.
       doc = Nokogiri::HTML(open(url))
       new_array = doc.css(".plant_details").text.split("\n")
@@ -81,7 +78,8 @@ class Scraper
       Tree.all[indx].add_tree_attributes(tree_data)
     end
   end
-
+#this is adding data to only one tree at a time,
+#it uses 'each.with_index' to advance through the Tree.all array adding 'tree_data' one tree at a time
 
 
 
