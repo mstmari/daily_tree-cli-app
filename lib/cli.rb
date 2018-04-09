@@ -7,6 +7,7 @@ class CLI
   end
 
   def display_trees
+
     Tree.all.each.with_index do |tree, i|
       puts "  #{i}"
       puts "  Common Name:" + " #{tree.common_name}"
@@ -69,6 +70,7 @@ class CLI
     input = gets.strip.downcase.to_s
 
     case input
+
     when "yes", "y", "yeah"
         display_trees
         find_tree_by_number
@@ -92,5 +94,4 @@ end
 
 #Refactor Scraper to no longer rely on class variables
 #Refactor last Scraper method to only add attributes to a single tree at a time
-
 #Refactor tree to only add attributes to one tree instance at a time

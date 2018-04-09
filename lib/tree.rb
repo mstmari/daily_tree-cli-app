@@ -17,6 +17,7 @@ class Tree
 
 
   def add_tree_attributes(tree_data)
+
     @comment = tree_data[:comment]
     @height = tree_data[:height]
     @habit = tree_data[:habit]
